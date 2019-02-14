@@ -15,4 +15,4 @@ class Sin(Function):
 def sin(x):
     """Elementwise sin function."""
     f = Sin()
-    return f(x)
+    return f(x)[0]

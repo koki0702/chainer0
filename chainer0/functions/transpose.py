@@ -55,4 +55,4 @@ def transpose(x, axes=None):
                    [[3., 4., 5.]]], dtype=float32)
     """
     f = Transpose(axes)
-    return f(x)
+    return f(x)[0]

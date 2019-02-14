@@ -26,4 +26,4 @@ class MatMul(Function):
 
 def matmul(a, b):
     f = MatMul()
-    return f(a, b)
+    return f(a, b)[0]

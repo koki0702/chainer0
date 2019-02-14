@@ -24,9 +24,10 @@ class Log(Function):
 
 
 def exp(x):
-    return Exp()(x)
+    f = Exp()
+    return f(x)[0]
 
 
 def log(x):
     f = Log()
-    return f(x)
+    return f(x)[0]

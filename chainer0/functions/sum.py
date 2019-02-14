@@ -24,7 +24,8 @@ class Sum(Function):
 
 def sum(x, axis=None, keepdims=False):
     f = Sum(axis, keepdims)
-    return f(x)
+    y = f(x)[0]
+    return y
 
 
 class SumTo(Function):
@@ -54,7 +55,7 @@ class SumTo(Function):
 
 def sum_to(x, shape):
     f = Sum(shape)
-    return f(x)
+    return f(x)[0]
 
 
 

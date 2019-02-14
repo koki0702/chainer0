@@ -20,4 +20,4 @@ class BroadcastTo(Function):
 
 def broadcast_to(x, shape):
     f = BroadcastTo(shape)
-    return f(x)
+    return f(x)[0]

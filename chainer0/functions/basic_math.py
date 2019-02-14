@@ -81,59 +81,59 @@ def add(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Add()
-    return f(self, rhs)
+    return f(self, rhs)[0]
 
 def sub(self, rhs):  # lhs - rhs
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Sub()
-    return f(self, rhs)
+    return f(self, rhs)[0]
 
 def rsub(self, rhs):  # rhs - lhs
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Sub()
-    return f(rhs, self)
+    return f(rhs, self)[0]
 
 def mul(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Mul()
-    return f(self, rhs)
+    return f(self, rhs)[0]
 
 def pow(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Pow()
-    return f(self, rhs)
+    return f(self, rhs)[0]
 
 def rpow(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Pow()
-    return f(rhs, self)
+    return f(rhs, self)[0]
 
 def neg(self):
     f = Neg()
-    return f(self)
+    return f(self)[0]
 
 
 def absolute(self):
     f = Absolute()
-    return f(self)
+    return f(self)[0]
 
 
 def div(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Div()
-    return f(self, rhs)
+    return f(self, rhs)[0]
 
 def rdiv(self, rhs):
     if not isinstance(rhs, variable.Variable):
         rhs = variable.Variable(np.array(rhs))
     f = Div()
-    return f(rhs, self)
+    return f(rhs, self)[0]
 
 '''
 def mul(self, rhs):

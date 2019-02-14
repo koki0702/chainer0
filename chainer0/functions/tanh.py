@@ -19,4 +19,4 @@ class Tanh(Function):
 def tanh(x):
     """Elementwise tanh function."""
     f = Tanh()
-    return f(x)
+    return f(x)[0]

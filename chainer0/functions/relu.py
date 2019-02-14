@@ -16,4 +16,4 @@ class ReLU(Function):
 def relu(x):
     """Rectified Linear Unit function."""
     f = ReLU()
-    return f(x)
+    return f(x)[0]
