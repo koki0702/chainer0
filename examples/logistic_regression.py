@@ -1,6 +1,6 @@
 import numpy as np
 
-from chainer0 import Function, Variable
+from chainer0 import Variable
 from chainer0.functions import tanh, matmul, log, sum
 
 
@@ -22,13 +22,14 @@ inputs = Variable(np.array([[0.52, 1.12,  0.77],
                    [0.88, -1.08, 0.15],
                    [0.52, 0.06, -1.30],
                    [0.74, -2.49, 1.39]]))
-targets = Variable(np.array([[True], [True], [False], [True]]))#[True, True, False, True]))
+targets = Variable(np.array([[True], [True], [False], [True]]))
 weights = Variable(np.array([[0.0], [0.0], [0.0]]))
 
 
 # Define a function that returns gradients of training loss using Autograd.
 
 print("Initial loss:", training_loss(weights).data)
+assert training_loss(weights).data == 2.772588722239781
 
 for i in range(100):
     weights.cleargrad()
@@ -38,7 +39,7 @@ for i in range(100):
     weights.data -= weights.grad * 0.01
 
 print("Trained loss:", training_loss(weights).data)
-
+assert training_loss(weights).data == 0.38900754315581143
 
 '''
 training_gradient_fun = grad(training_loss)

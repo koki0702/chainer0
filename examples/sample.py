@@ -11,20 +11,17 @@ dx = x.grad_var
 
 print('y', y.data)
 print('dx', x.grad)
+assert y.data == 7.
+assert x.grad == 5.
 
 x.cleargrad()
 dx.backward()
 print('ddx', x.grad)
+assert x.grad == 2.
 
 dx = x.grad_var
 x.cleargrad()
 dx.backward()
 print('dddx', x.grad)
+assert x.grad == 0.
 
-
-xx = Variable(np.random.rand(10))
-
-y = 1 + xx
-print(xx.data)
-print(y.data)
-#x.cleargrad()

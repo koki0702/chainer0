@@ -7,10 +7,9 @@ class Transpose(Function):
     def __init__(self, axes=None):
         self.axes = axes
 
-    def forward(self, inputs):
-        x = inputs[0]
+    def forward(self, x):
         y = x.transpose(self.axes)
-        return y,
+        return y
 
     def backward(self, grad_vars):
         inv_axes = self.axes
@@ -55,4 +54,4 @@ def transpose(x, axes=None):
                    [[3., 4., 5.]]], dtype=float32)
     """
     f = Transpose(axes)
-    return f(x)[0]
+    return f(x)

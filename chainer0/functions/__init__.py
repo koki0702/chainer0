@@ -6,6 +6,7 @@ from chainer0.functions.exponential import Log
 from chainer0.functions.exponential import log
 from chainer0.functions.exponential import Exp
 from chainer0.functions.exponential import exp
+from chainer0.functions.sigmoid import sigmoid
 from chainer0.functions.tanh import tanh
 from chainer0.functions.tanh import Tanh
 from chainer0.functions.transpose import Transpose
@@ -18,3 +19,4 @@ from chainer0.functions.sum import SumTo
 from chainer0.functions.sum import sum_to
 from chainer0.functions.broadcast import BroadcastTo
 from chainer0.functions.broadcast import broadcast_to
+from chainer0.functions.mean_squared_error import mean_squared_error

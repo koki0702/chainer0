@@ -15,4 +15,5 @@ def taylor_sine(x):  # Taylor approximation to sine function
 x = Variable(np.array([np.pi]))
 y = taylor_sine(x)
 y.backward()
-print('Gradient of sin(pi) is',  x.grad)
+print('Gradient of sin(pi) is',  x.grad[0])
+assert x.grad[0] == -0.9998995297042175

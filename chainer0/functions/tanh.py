@@ -1,11 +1,10 @@
 import numpy as np
-
 from chainer0.function import Function
 
 
 class Tanh(Function):
     def forward(self, x):
-        return np.tanh(x[0]),
+        return np.tanh(x)
 
     def backward(self, grad_vars):
         gy = grad_vars[0]
@@ -19,4 +18,4 @@ class Tanh(Function):
 def tanh(x):
     """Elementwise tanh function."""
     f = Tanh()
-    return f(x)[0]
+    return f(x)

@@ -1,4 +1,4 @@
-import numpy as xp
+import numpy as np
 import heapq
 
 from chainer0 import configuration
@@ -12,6 +12,9 @@ class Variable(object):
         self.grad_var = grad_var
         self.creator = None
         self.name = name
+
+    def __repr__(self):
+        return np.array2string(self.data)
 
     @property
     def grad(self):
@@ -31,7 +34,7 @@ class Variable(object):
         if self.creator is None:
             return
         if self.data.size == 1 and self.grad is None:  # Loss variable
-            self.grad_var = Variable(xp.ones_like(self.data))
+            self.grad_var = Variable(np.ones_like(self.data))
 
         cand_funcs = []
         seen_set = set()

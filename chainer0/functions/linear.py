@@ -4,16 +4,14 @@ from chainer0.function import Function
 from chainer0.functions import transpose
 
 
-def as_mat(x):
-    if x.ndim == 2:
-        return x
-    return x.reshape(len(x), -1)
-
-
-class MatMul(Function):
-    def forward(self, a, b):
-        #a, b = as_mat(a), as_mat(b)
-        return a.dot(b)
+class Linear(Function):
+    def forward(self, inputs):
+        x, W = inputs[0], inputs[1]
+        y = x.dot(W)
+        if len(inputs) == 3:
+            b = inputs[2]
+            y += b
+        return y
 
     def backward(self, grad_vars):
         gy_var = grad_vars[0]
@@ -25,4 +23,4 @@ class MatMul(Function):
 
 def matmul(a, b):
     f = MatMul()
-    return f(a, b)
+    return f(a, b)[0]

@@ -9,11 +9,10 @@ class Sum(Function):
         self.axis = axis
         self.keepdims = keepdims
 
-    def forward(self, inputs):
-        x, = inputs
+    def forward(self, x):
         ret = x.sum(axis=self.axis, keepdims=self.keepdims)
         ret = np.asarray(ret)
-        return ret,
+        return ret
 
     def backward(self, grad_outputs):
         gy = grad_outputs[0]
@@ -24,16 +23,14 @@ class Sum(Function):
 
 def sum(x, axis=None, keepdims=False):
     f = Sum(axis, keepdims)
-    y = f(x)[0]
-    return y
+    return f(x)
 
 
 class SumTo(Function):
     def __init__(self, shape):
         self.shape = shape
 
-    def forward(self, inputs):
-        x, = inputs
+    def forward(self, x):
         if x.shape == self.shape:
             return x
 
@@ -44,7 +41,7 @@ class SumTo(Function):
         y = x.sum(lead_axis + axis, keepdims=True)
         if lead > 0:
             y = y.squeeze(lead_axis)
-        return y,
+        return y
 
     def backward(self, grad_outputs):
         gy = grad_outputs[0]
@@ -54,8 +51,8 @@ class SumTo(Function):
 
 
 def sum_to(x, shape):
-    f = Sum(shape)
-    return f(x)[0]
+    f = SumTo(shape)
+    return f(x)
 
 
 

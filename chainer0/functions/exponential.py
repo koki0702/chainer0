@@ -5,7 +5,7 @@ from chainer0.function import Function
 
 class Exp(Function):
     def forward(self, x):
-        return np.exp(x[0]),
+        return np.exp(x)
 
     def backward(self, grad_vars):
         y = self.outputs[0]
@@ -15,7 +15,7 @@ class Exp(Function):
 
 class Log(Function):
     def forward(self, x):
-        return np.log(x[0]),
+        return np.log(x)
 
     def backward(self, grad_vars):
         x_var = self.inputs[0]
@@ -25,9 +25,9 @@ class Log(Function):
 
 def exp(x):
     f = Exp()
-    return f(x)[0]
+    return f(x)
 
 
 def log(x):
     f = Log()
-    return f(x)[0]
+    return f(x)

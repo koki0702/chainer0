@@ -7,19 +7,30 @@ from chainer0 import configuration
 class Function(object):
 
     def __call__(self, *inputs):
+        inputs = [x if isinstance(x, Variable)
+                  else Variable(np.array(x))
+                  for x in inputs]
+
         in_data = [x.data for x in inputs]
-        outputs = self.forward(in_data)
-        ret = [Variable(y) for y in outputs]
+        out_data = self.forward(*in_data)
 
-        if configuration.config.enable_backprop:
-            self.rank = max([x.rank for x in inputs])
-            for y in ret:
+        self.rank = max([x.rank for x in inputs])
+        self.inputs = inputs
+
+        if isinstance(out_data, tuple) or isinstance(out_data, list):
+            outputs = [Variable(y) for y in out_data]
+            for y in outputs:
                 y.set_creator(self)
-            self.inputs = inputs
-            self.outputs = ret
+            self.outputs = outputs
+            return outputs
+        else:
+            output = Variable(out_data)
+            output.set_creator(self)
+            self.output = output
+            self.outputs = [output]
+            return output
 
-        return ret
-        #return ret if len(ret) > 1 else ret[0]
+        #return outputs if len(outputs) > 1 else outputs[0]
 
     def forward(self, inputs):
         NotImplementedError()
