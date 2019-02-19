@@ -11,12 +11,12 @@ class Transpose(Function):
         y = x.transpose(self.axes)
         return y
 
-    def backward(self, grad_vars):
+    def backward(self, gy):
         inv_axes = self.axes
         if inv_axes:
             axes_len = len(inv_axes)
             inv_axes = tuple(np.argsort([ax % axes_len for ax in inv_axes]))
-        return Transpose(inv_axes)(grad_vars)
+        return Transpose(inv_axes)(gy)
 
 
 def transpose(x, axes=None):

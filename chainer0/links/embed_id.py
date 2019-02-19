@@ -1,8 +1,6 @@
 import numpy as np
-
-import chainer0
 from chainer0 import Link
-from chainer0.functions import matmul, broadcast_to
+from chainer0.functions import embed_id
 
 
 class EmbedID(Link):
@@ -15,9 +13,4 @@ class EmbedID(Link):
         super().__init__(W=initialW)
 
     def __call__(self, x):
-
-        y = matmul(x, self.W)
-        if not self.nobias:
-            bb = broadcast_to(self.b, y.data.shape)
-            y += bb
-        return y
+        return embed_id(x, self.W)

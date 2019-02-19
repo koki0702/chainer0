@@ -1,17 +1,18 @@
 import numpy as np
 from os.path import dirname, join
 from chainer0 import Function, Variable
-from chainer0.functions import tanh, matmul, log, sum
+from chainer0.functions import sigmoid, matmul, log, sum, embed_id
 
-
-def sigmoid(x):
-    return 0.5 * (tanh(x) + 1.0)
 
 def logistic_predictions(weights, inputs):
     score = matmul(inputs, weights)
     return sigmoid(score)
 
 
+x = np.array([[1,2,3], [2,3,4])
+
+
+'''
 
 ### Dataset setup ##################
 
@@ -45,3 +46,4 @@ train_inputs = build_dataset(text_filename, sequence_length=30,
                                  alphabet_size=num_chars, max_lines=60)
 
 print(train_inputs.shape)
+'''

@@ -1,10 +1,17 @@
 import numpy as np
-
+from chainer0 import Function
 from chainer0.functions import sum
 
 
-def mean_squared_error(x0, x1):
-    diff = x0 - x1
+def MeanSquaredError(Function):
+
+    def __call__(*inputs):
+        x, t = inputs
+        mean_squared_error(x, t)
+
+
+def mean_squared_error(x, t):
+    diff = x - t
     total = sum(diff * diff)
-    N = x0.data.shape[0]
+    N = x.data.shape[0]
     return total / N

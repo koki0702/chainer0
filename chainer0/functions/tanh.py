@@ -6,13 +6,10 @@ class Tanh(Function):
     def forward(self, x):
         return np.tanh(x)
 
-    def backward(self, grad_vars):
-        gy = grad_vars[0]
-        x = self.inputs[0]
-        #y = self(x)  # y = tanh(x)
+    def backward(self, gy):
         y = self.outputs[0]
         gx = gy * (1 - y * y)
-        return gx,
+        return gx
 
 
 def tanh(x):

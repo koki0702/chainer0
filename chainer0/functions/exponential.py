@@ -7,20 +7,19 @@ class Exp(Function):
     def forward(self, x):
         return np.exp(x)
 
-    def backward(self, grad_vars):
+    def backward(self, gy):
         y = self.outputs[0]
-        gy = grad_vars[0]
-        return y * gy,
+        return y * gy
 
 
 class Log(Function):
     def forward(self, x):
         return np.log(x)
 
-    def backward(self, grad_vars):
+    def backward(self, gy):
         x_var = self.inputs[0]
-        gx = grad_vars[0] / x_var
-        return gx,
+        gx = gy / x_var
+        return gx
 
 
 def exp(x):

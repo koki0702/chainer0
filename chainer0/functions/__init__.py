@@ -19,4 +19,9 @@ from chainer0.functions.sum import SumTo
 from chainer0.functions.sum import sum_to
 from chainer0.functions.broadcast import BroadcastTo
 from chainer0.functions.broadcast import broadcast_to
+from chainer0.functions.embed_id import EmbedId
+from chainer0.functions.embed_id import embed_id
+from chainer0.functions.mean_squared_error import MeanSquaredError
 from chainer0.functions.mean_squared_error import mean_squared_error
+from chainer0.functions.softmax_cross_entropy import SoftmaxCrossEntropy
+from chainer0.functions.softmax_cross_entropy import softmax_cross_entropy

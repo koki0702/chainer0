@@ -14,23 +14,17 @@ class Function(object):
         in_data = [x.data for x in inputs]
         out_data = self.forward(*in_data)
 
+        if not isinstance(out_data, tuple):
+            out_data = (out_data,)
+        outputs = [Variable(y) for y in out_data]
+
         self.rank = max([x.rank for x in inputs])
+        for y in outputs:
+            y.set_creator(self)
         self.inputs = inputs
+        self.outputs = outputs
 
-        if isinstance(out_data, tuple) or isinstance(out_data, list):
-            outputs = [Variable(y) for y in out_data]
-            for y in outputs:
-                y.set_creator(self)
-            self.outputs = outputs
-            return outputs
-        else:
-            output = Variable(out_data)
-            output.set_creator(self)
-            self.output = output
-            self.outputs = [output]
-            return output
-
-        #return outputs if len(outputs) > 1 else outputs[0]
+        return outputs if len(outputs) > 1 else outputs[0]
 
     def forward(self, inputs):
         NotImplementedError()

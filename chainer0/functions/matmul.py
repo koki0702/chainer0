@@ -15,8 +15,7 @@ class MatMul(Function):
         #a, b = as_mat(a), as_mat(b)
         return a.dot(b)
 
-    def backward(self, grad_vars):
-        gy_var = grad_vars[0]
+    def backward(self, gy_var):
         a_var, b_var = self.inputs
         ga_var = matmul(gy_var, transpose(b_var))
         gb_var = matmul(transpose(a_var), gy_var)

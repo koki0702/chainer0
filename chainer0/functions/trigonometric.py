@@ -7,8 +7,9 @@ class Sin(Function):
     def forward(self, x):
         return np.sin(x)
 
-    def backward(self, x, gy):
-        gx = np.cos(x[0]) * gy[0]
+    def backward(self, gy):
+        x = self.inputs[0]
+        gx = np.cos(x) * gy
         return gx,
 
 

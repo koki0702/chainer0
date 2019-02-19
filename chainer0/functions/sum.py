@@ -14,11 +14,10 @@ class Sum(Function):
         ret = np.asarray(ret)
         return ret
 
-    def backward(self, grad_outputs):
-        gy = grad_outputs[0]
+    def backward(self, gy):
         x = self.inputs[0]
         gx = chainer0.functions.broadcast_to(gy, x.data.shape)
-        return gx,
+        return gx
 
 
 def sum(x, axis=None, keepdims=False):
@@ -43,11 +42,10 @@ class SumTo(Function):
             y = y.squeeze(lead_axis)
         return y
 
-    def backward(self, grad_outputs):
-        gy = grad_outputs[0]
+    def backward(self, gy):
         x = self.inputs[0]
         gx = chainer0.functions.broadcast_to(gy, x.data.shape)
-        return gx,
+        return gx
 
 
 def sum_to(x, shape):

@@ -11,8 +11,7 @@ class BroadcastTo(Function):
     def forward(self, x):
         return np.broadcast_to(x, self.shape)
 
-    def backward(self, grad_outputs):
-        gy = grad_outputs[0]
+    def backward(self, gy):
         x = self.inputs[0]
         return chainer0.functions.sum_to(gy, x.data.shape),
 

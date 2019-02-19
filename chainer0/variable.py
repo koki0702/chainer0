@@ -24,7 +24,12 @@ class Variable(object):
 
     @grad.setter
     def grad(self, g):
-        self.grad_var = None if g is None else Variable(g)
+        if isinstance(g, Variable):
+            self.grad_var = g
+        elif g is None:
+            self.grad_var = None
+        else:
+            self.grad_var = Variable(g)
 
     def set_creator(self, gen_func):
         self.creator = gen_func
@@ -33,7 +38,8 @@ class Variable(object):
     def backward(self, enable_double_backprop=True):
         if self.creator is None:
             return
-        if self.data.size == 1 and self.grad is None:  # Loss variable
+        #if self.data.size == 1 and self.grad is None:  # Loss variable
+        if self.grad is None:
             self.grad_var = Variable(np.ones_like(self.data))
 
         cand_funcs = []
@@ -50,7 +56,10 @@ class Variable(object):
             _, _, func = heapq.heappop(cand_funcs)
             out_grad_var = [y.grad_var for y in func.outputs]
             with configuration.using_config('enable_backprop', enable_double_backprop):
-                gxs = func.backward(out_grad_var)
+                gxs = func.backward(*out_grad_var)
+
+            if not isinstance(gxs, tuple):
+                gxs = (gxs,)
 
             for x, gx in zip(func.inputs, gxs):
                 if x.grad_var is None:

@@ -10,7 +10,7 @@ class Add(Function):
         return y
 
     def backward(self, gy):
-        return gy[0], gy[0]
+        return gy, gy
 
 
 class Sub(Function):
@@ -19,7 +19,7 @@ class Sub(Function):
         return y
 
     def backward(self, gy):
-        return gy[0], -gy[0]
+        return gy, -gy
 
 
 class Mul(Function):
@@ -29,7 +29,7 @@ class Mul(Function):
 
     def backward(self, gy):
         x0, x1 = self.inputs
-        return gy[0]*x1, gy[0]*x0
+        return gy * x1, gy * x0
 
 
 class Div(Function):
@@ -39,7 +39,7 @@ class Div(Function):
 
     def backward(self, gy):
         x0, x1 = self.inputs
-        gx0 = gy[0] / x1
+        gx0 = gy / x1
         gx1 = -gx0 * x0 / x1
         return gx0, gx1
 
@@ -49,7 +49,7 @@ class Neg(Function):
         return -x
 
     def backward(self, gy):
-        return -gy[0],
+        return -gy
 
 
 class Pow(Function):
@@ -57,9 +57,8 @@ class Pow(Function):
         y = a ** b
         return y
 
-    def backward(self, grad_vars):
+    def backward(self, gy):
         x0, x1 = self.inputs
-        gy = grad_vars[0]
         gx0 = x1 * (x0 ** (x1 - 1)) * gy
         gx1 = functions.log(x0) * (x0 ** x1) * gy
         return gx0, gx1
@@ -71,9 +70,9 @@ class Absolute(Function):
         return y
 
     def backward(self, gy):
-        y = self.output[0]
+        y = self.outputs[0]
         sign = variable(np.sign(y.data))
-        return sign * gy[0]
+        return sign * gy
 
 
 def add(self, rhs):
