@@ -5,7 +5,7 @@ python:
 
 install:
   - pip install pytest
-  - pip install unmpy
+  - pip install numpy
 
 script:
   - pytest tests
