@@ -2,11 +2,12 @@
 
 from distutils.core import setup
 
-setup(name='Distutils',
-      version='1.0',
-      description='Python Distribution Utilities',
-      author='Greg Ward',
-      author_email='gward@python.net',
-      url='https://www.python.org/sigs/distutils-sig/',
-      packages=['distutils', 'distutils.command'],
+setup(name='Chainer0',
+      version='0.0',
+      install_requires=['numpy'],
+      description='Chainer0',
+      author='Koki Saitoh',
+      author_email='koki0702@gmail.com',
+      url='',
+      packages=['chainer0'],
      )
