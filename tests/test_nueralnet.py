@@ -37,5 +37,4 @@ class TestNueralnet(unittest.TestCase):
             #print(loss.data)
             log.append(loss.data)
 
-        self.assertTrue(np.alltrue(np.array(log) == np.array(expected)))
-
+        self.assertTrue(np.allclose(np.array(log), np.array(expected)))
