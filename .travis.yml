@@ -5,12 +5,13 @@ python:
 
 install:
   - pip install coveralls
+  - pip install pytest-cov
   - pip install pytest
   - pip install numpy
 
-after_success:
-  - coveralls
-  
 script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
-  - pytest tests
+  - pytest tests --conv=chainer0/
+
+after_success:
+  - coveralls
