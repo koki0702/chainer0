@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
+import setuptools
+
 
 setup(name='Chainer0',
       version='0.0',
@@ -9,5 +11,5 @@ setup(name='Chainer0',
       author='Koki Saitoh',
       author_email='koki0702@gmail.com',
       url='',
-      packages=['chainer0'],
+      package=setuptools.find_packages(),
      )
