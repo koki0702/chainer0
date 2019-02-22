@@ -11,7 +11,7 @@ install:
 
 script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
-  - pytest tests --conv=chainer0/
+  - pytest tests --cov=chainer0/
 
 after_success:
   - coveralls
