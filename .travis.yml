@@ -6,7 +6,6 @@ python:
 install:
   - pip install pytest
   - pip install numpy
-  - python setup.py -q install
-  
+
 script:
   - pytest tests
