@@ -4,9 +4,13 @@ python:
   - 3.6
 
 install:
+  - pip install coveralls
   - pip install pytest
   - pip install numpy
 
+after_success:
+  - coveralls
+  
 script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
   - pytest tests
