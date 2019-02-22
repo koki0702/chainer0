@@ -7,9 +7,11 @@ from chainer0.functions import tanh, matmul, log, sum
 def sigmoid(x):
     return 0.5 * (tanh(x) + 1)
 
+
 def logistic_predictions(weights, inputs):
     score = matmul(inputs, weights)
     return sigmoid(score)
+
 
 def training_loss(weights):
     # Training loss is the negative log-likelihood of the training labels.
@@ -22,8 +24,12 @@ inputs = Variable(np.array([[0.52, 1.12,  0.77],
                    [0.88, -1.08, 0.15],
                    [0.52, 0.06, -1.30],
                    [0.74, -2.49, 1.39]]))
-targets = Variable(np.array([[True], [True], [False], [True]]))
-weights = Variable(np.array([[0.0], [0.0], [0.0]]))
+#targets = Variable(np.array([[True], [True], [False], [True]]))
+#weights = Variable(np.array([[0.0], [0.0], [0.0]]))
+
+targets = Variable(np.array([True, True, False, True]))
+weights = Variable(np.array([0.0, 0.0, 0.0]))
+
 
 
 # Define a function that returns gradients of training loss using Autograd.

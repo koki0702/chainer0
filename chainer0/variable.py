@@ -54,7 +54,11 @@ class Variable(object):
 
         while cand_funcs:
             _, _, func = heapq.heappop(cand_funcs)
+
             out_grad_var = [y.grad_var for y in func.outputs]
+            for y in func.outputs:
+                y.grad_var = None#Variable(y.grad_var.data)
+
             with configuration.using_config('enable_backprop', enable_double_backprop):
                 gxs = func.backward(*out_grad_var)
 
@@ -73,6 +77,9 @@ class Variable(object):
     def cleargrad(self):
         self.grad_var = None
 
+    @property
+    def shape(self):
+        return self.data.shape
 
 
 #    def __pow__(self, power, modulo=None):

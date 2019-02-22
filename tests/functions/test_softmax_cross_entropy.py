@@ -3,8 +3,6 @@ import numpy as np
 from chainer0 import Variable
 import chainer0.functions as F
 
-from chainer0.functions import SoftmaxCrossEntropy, softmax_cross_entropy
-
 
 class TestSoftmaxCrossEntropy(unittest.TestCase):
 

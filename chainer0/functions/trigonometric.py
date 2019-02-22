@@ -9,11 +9,27 @@ class Sin(Function):
 
     def backward(self, gy):
         x = self.inputs[0]
-        gx = np.cos(x) * gy
-        return gx,
+        gx = cos(x) * gy
+        return gx
+
+
+class Cos(Function):
+    def forward(self, x):
+        return np.cos(x)
+
+    def backward(self, gy):
+        x = self.inputs[0]
+        gx = -sin(x) * gy
+        return gx
 
 
 def sin(x):
     """Elementwise sin function."""
     f = Sin()
+    return f(x)
+
+
+def cos(x):
+    """Elementwise sin function."""
+    f = Cos()
     return f(x)

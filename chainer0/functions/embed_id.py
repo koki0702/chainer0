@@ -15,6 +15,5 @@ class EmbedId(Function):
 
 
 def embed_id(x, W):
-    """Elementwise tanh function."""
     f = EmbedId()
     return f(x, W)

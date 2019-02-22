@@ -5,11 +5,11 @@ from chainer0.link import Link
 from chainer0.link import Chain
 from chainer0.optimizer import Optimizer
 from chainer0.functions import basic_math
-from chainer0.configuration import config  # NOQA
-
+from chainer0.functions import array
+from chainer0.configuration import config
 
 basic_math.install_variable_arithmetics()
-
+array.install_variable_get_item()
 
 config.enable_backprop = True
 config.train = True

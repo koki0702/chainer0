@@ -1,5 +1,4 @@
 import numpy as np
-
 from chainer0.variable import Variable
 from chainer0 import configuration
 
@@ -33,7 +32,8 @@ class Function(object):
         NotImplementedError()
 
 
-def grad(output):
+def grad(outputs, inputs, enable_double_backprop=False):
+    '''
     # clear all CG grad_var
     candidate_funcs = [output.creator]
     visited_funcs = set()
@@ -49,7 +49,12 @@ def grad(output):
             creator = x.creator
             if creator is not None and creator not in visited_funcs:
                 candidate_funcs.append(creator)
+    '''
 
-    if output.grad_var is None:
-        output.grad = np.ones_like(output.data)
-    output.backward()
+    for input in inputs:
+        input.grad_var = None
+
+    for output in outputs:
+        output.backward(enable_double_backprop)
+
+    return [input.grad_var for input in inputs]

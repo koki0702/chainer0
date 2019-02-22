@@ -3,6 +3,7 @@ from chainer0.function import Function
 
 
 class Tanh(Function):
+
     def forward(self, x):
         return np.tanh(x)
 

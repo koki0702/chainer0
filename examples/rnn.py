@@ -1,15 +1,58 @@
 import numpy as np
 from os.path import dirname, join
 from chainer0 import Function, Variable
-from chainer0.functions import sigmoid, matmul, log, sum, embed_id
+import chainer0.functions as F
+import chainer0.links as L
+from chainer0 import Chain
+from chainer0.optimizers import SGD
 
 
-def logistic_predictions(weights, inputs):
-    score = matmul(inputs, weights)
-    return sigmoid(score)
+class RNN(Chain):
+
+    def __init__(self, in_size, hidden_size, out_size):
+        super().__init__()
+
+        I, H, O = in_size, hidden_size, out_size
+        with self.init_scope():
+            self.embed = L.EmbedID(I, H)
+            self.mid = L.SimpleRNN(H, H)
+            self.out = L.Linear(H, O)
 
 
-x = np.array([[1,2,3], [2,3,4])
+    def reset_state(self):
+        self.mid.reset_state()
+
+    def __call__(self, x):
+        x = self.embed(x)
+        h = self.mid(x)
+        y = self.out(h)
+        return y
+
+
+model = RNN(10,10,10)
+
+def compute_loss(x_list):
+    loss = 0
+    for cur_word, next_word in zip(x_list, x_list[1:]):
+        score = model(cur_word)
+        loss += F.softmax_cross_entropy(score, next_word)
+    return loss
+
+
+optimizer = SGD(lr=0.1)
+optimizer.setup(model)
+
+x_list = [1,2,3,4,0,3,4,2,2,4]
+x_list = [Variable(np.array([x])) for x in x_list]
+
+for i in range(10):
+    model.reset_state()
+    model.cleargrads()
+    loss = compute_loss(x_list)
+    loss.backward()
+    optimizer.update()
+    print(loss)
+
 
 
 '''
