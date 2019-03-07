@@ -2,7 +2,6 @@ import os
 
 import numpy
 
-import chainer
 from chainer0.datasets import download
 from chainer0.datasets._mnist_helper import make_npz
 from chainer0.datasets._mnist_helper import preprocess_mnist
@@ -48,7 +47,7 @@ def get_mnist(withlabel=True, ndim=1, scale=1., dtype=None,
         are :class:`~chainer.datasets.TupleDataset` instances. Otherwise, both
         datasets are arrays of images.
     """
-    dtype = chainer.get_dtype(dtype)
+    dtype = 'f'
     train_raw = _retrieve_mnist_training()
     train = preprocess_mnist(train_raw, withlabel, ndim, scale, dtype,
                              label_dtype, rgb_format)
