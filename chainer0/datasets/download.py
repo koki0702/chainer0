@@ -4,9 +4,7 @@ import os
 import shutil
 import sys
 import tempfile
-
-import filelock
-from six.moves.urllib import request
+from urllib import request
 
 
 @contextlib.contextmanager
@@ -92,21 +90,19 @@ def cached_download(url):
         if not os.path.isdir(cache_root):
             raise
 
-    lock_path = os.path.join(cache_root, '_dl_lock')
+
     urlhash = hashlib.md5(url.encode('utf-8')).hexdigest()
     cache_path = os.path.join(cache_root, urlhash)
 
-    with filelock.FileLock(lock_path):
-        if os.path.exists(cache_path):
-            return cache_path
+    if os.path.exists(cache_path):
+        return cache_path
 
     with tempdir(dir=cache_root) as temp_root:
         temp_path = os.path.join(temp_root, 'dl')
         sys.stderr.write('Downloading from {}...\n'.format(url))
         sys.stderr.flush()
         request.urlretrieve(url, temp_path)
-        with filelock.FileLock(lock_path):
-            shutil.move(temp_path, cache_path)
+        shutil.move(temp_path, cache_path)
 
     return cache_path
 
@@ -137,16 +133,14 @@ def cache_or_load_file(path, creator, loader):
         os.makedirs(_dataset_root)
     except OSError:
         if not os.path.isdir(_dataset_root):
-            raise RuntimeError('cannot create dataset directory')
-
-    lock_path = os.path.join(_dataset_root, '_create_lock')
+            raise RuntimeError('cannot create dataset directory')    
 
     with tempdir() as temp_dir:
         file_name = os.path.basename(path)
         temp_path = os.path.join(temp_dir, file_name)
         content = creator(temp_path)
-        with filelock.FileLock(lock_path):
-            if not os.path.exists(path):
-                shutil.move(temp_path, path)
+        
+        if not os.path.exists(path):
+            shutil.move(temp_path, path)
 
     return content

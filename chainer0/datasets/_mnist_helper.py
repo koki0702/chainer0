@@ -12,7 +12,7 @@ def make_npz(path, urls):
     x_url, y_url = urls
     x_path = download.cached_download(x_url)
     y_path = download.cached_download(y_url)
-
+    
     with gzip.open(x_path, 'rb') as fx, gzip.open(y_path, 'rb') as fy:
         fx.read(4)
         fy.read(4)

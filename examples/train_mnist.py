@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 """Fully-connected neural network example using MNIST dataset
 This code is a custom loop version of train_mnist.py. That is, we train
