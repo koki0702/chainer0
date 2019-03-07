@@ -16,8 +16,7 @@ class Linear(Link):
             self.W = Variable(None)
             if in_size is not None:
                 self._initialize_params(in_size)
-
-            self.b = None if nobias else np.zeros(out_size)
+            self.b = None if nobias else Variable(np.zeros(out_size))
 
     def _initialize_params(self, in_size):
         self.W.data = np.random.rand(in_size, self.out_size) * np.sqrt(2/in_size)
@@ -26,5 +25,6 @@ class Linear(Link):
         if self.W.data is None:
             in_size = x.shape[1]
             self._initialize_params(in_size)
+
         y = F.linear(x, self.W, self.b)
         return y
