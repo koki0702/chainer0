@@ -3,6 +3,7 @@ from chainer0.variable import Variable
 
 
 class Optimizer(object):
+
     def setup(self, link):
         self.target = link
 

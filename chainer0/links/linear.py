@@ -23,7 +23,7 @@ class Linear(Link):
         self.W.data = np.random.rand(in_size, self.out_size) * np.sqrt(2/in_size)
 
     def __call__(self, x):
-        if self.W is None:
+        if self.W.data is None:
             in_size = x.shape[1]
             self._initialize_params(in_size)
         y = F.linear(x, self.W, self.b)

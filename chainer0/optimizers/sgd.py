@@ -1,4 +1,5 @@
-from chainer0 import Optimizer
+from chainer0.optimizer import Optimizer
+
 
 class SGD(Optimizer):
     def __init__(self, lr=0.01):

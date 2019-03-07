@@ -28,6 +28,8 @@ from chainer0.functions.broadcast import BroadcastTo
 from chainer0.functions.broadcast import broadcast_to
 from chainer0.functions.reshape import Reshape
 from chainer0.functions.reshape import reshape
+from chainer0.functions.flatten import Flatten
+from chainer0.functions.flatten import flatten
 from chainer0.functions.array import GetItem
 from chainer0.functions.array import get_item
 from chainer0.functions.embed_id import EmbedId
@@ -36,3 +38,5 @@ from chainer0.functions.mean_squared_error import MeanSquaredError
 from chainer0.functions.mean_squared_error import mean_squared_error
 from chainer0.functions.softmax_cross_entropy import SoftmaxCrossEntropy
 from chainer0.functions.softmax_cross_entropy import softmax_cross_entropy
+from chainer0.functions.accuracy import Accuracy
+from chainer0.functions.accuracy import accuracy

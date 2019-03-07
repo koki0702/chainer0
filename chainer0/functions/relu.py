@@ -8,9 +8,9 @@ class ReLU(Function):
         return np.maximum(x, 0)
 
     def backward(self, gy):
-        x_var = self.inputs[0]
-        gx = np.cos(x[0]) * gy[0]
-        return gx,
+        y = self.outputs[0]
+        gx = gy * (y.data > 0)  # TODO is it correct?
+        return gx
 
 
 def relu(x):
