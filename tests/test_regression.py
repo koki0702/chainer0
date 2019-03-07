@@ -2,7 +2,6 @@ import unittest
 import numpy as np
 
 import numpy as np
-import matplotlib.pyplot as plt
 import chainer0
 from chainer0.datasets import mnist
 import chainer0.links as L
