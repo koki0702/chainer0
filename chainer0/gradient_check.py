@@ -49,6 +49,7 @@ def numerical_grad(f, inputs, grad_output=None, eps=0.001):
 
     for x, grad in zip(inputs, grads):
         it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
+
         while not it.finished:
             idx = it.multi_index
             tmp_val = x[idx]
@@ -59,9 +60,10 @@ def numerical_grad(f, inputs, grad_output=None, eps=0.001):
             fxh2 = f(*inputs)  # f(x-h)
 
             if grad_output is None:
-                diff = fxh1 - fxh2
+                diff = (fxh1 - fxh2).sum()
             else:
                 diff = ((fxh1 - fxh2) * grad_output).sum()
+
             grad[idx] = diff / (2 * h)
 
             x[idx] = tmp_val  # 値を元に戻す
@@ -73,11 +75,3 @@ def numerical_grad(f, inputs, grad_output=None, eps=0.001):
 def _get_item(x):
     slice = 1
     return F.get_item(x, slice)
-
-x = np.random.randn(2,3)
-y = _get_item(x)
-print(x)
-print(y)
-
-res= check_backward(_get_item, np.random.randn(20,30), np.ones_like(y))
-print(res)
