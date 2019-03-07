@@ -11,6 +11,7 @@ from chainer0.configuration import config
 from chainer0 import optimizers
 from chainer0 import functions
 from chainer0 import datasets
+from chainer0 import distributions
 
 
 basic_math.install_variable_arithmetics()
