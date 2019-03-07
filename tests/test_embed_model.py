@@ -54,4 +54,5 @@ class TestEmbedModel(unittest.TestCase):
             0.195005940360243
             ])
 
-        self.assertTrue(np.alltrue(np.array(log) == expected))
+        res = np.allclose(np.array(log), expected)
+        self.assertTrue(res)
