@@ -39,8 +39,8 @@ class TestRegression(unittest.TestCase):
 
         def build_toy_dataset(n_data=80, noise_std=0.1):
             rs = np.random.RandomState(0)
-            inputs = np.concatenate([np.linspace(0, 3, num=n_data / 2),
-                                     np.linspace(6, 8, num=n_data / 2)])
+            inputs = np.concatenate([np.linspace(0, 3, num=int(n_data / 2)),
+                                     np.linspace(6, 8, num=int(n_data / 2))])
             targets = np.cos(inputs) + rs.randn(n_data) * noise_std
             inputs = (inputs - 4.0) / 2.0
             inputs = inputs[:, np.newaxis]
