@@ -9,7 +9,7 @@ class ReLU(Function):
 
     def backward(self, gy):
         y = self.outputs[0]
-        gx = gy * (y.data > 0)  # TODO is it correct?
+        gx = gy * (y.data > 0)
         return gx
 
 
