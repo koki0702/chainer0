@@ -20,6 +20,10 @@ from chainer0.functions.linear import Linear
 from chainer0.functions.linear import linear
 from chainer0.functions.matmul import MatMul
 from chainer0.functions.matmul import matmul
+from chainer0.functions.minmax import Min
+from chainer0.functions.minmax import min
+from chainer0.functions.minmax import Max
+from chainer0.functions.minmax import max
 from chainer0.functions.sum import Sum
 from chainer0.functions.sum import sum
 from chainer0.functions.sum import SumTo
@@ -38,5 +42,7 @@ from chainer0.functions.mean_squared_error import MeanSquaredError
 from chainer0.functions.mean_squared_error import mean_squared_error
 from chainer0.functions.softmax_cross_entropy import SoftmaxCrossEntropy
 from chainer0.functions.softmax_cross_entropy import softmax_cross_entropy
+from chainer0.functions.logsumexp import logsumexp
+from chainer0.functions.logsumexp import LogSumExp
 from chainer0.functions.accuracy import Accuracy
 from chainer0.functions.accuracy import accuracy
