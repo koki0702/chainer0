@@ -1,6 +1,7 @@
 import numpy as np
 import heapq
 
+import chainer0
 from chainer0 import configuration
 
 
@@ -30,6 +31,22 @@ class Variable(object):
             self.grad_var = None
         else:
             self.grad_var = Variable(g)
+
+    @property
+    def shape(self):
+        return self.data.shape
+
+    @property
+    def ndim(self):
+        return self.data.ndim
+
+    @property
+    def size(self):
+        return self.data.size
+
+    @property
+    def dtype(self):
+        return self.data.dtype
 
     def set_creator(self, gen_func):
         self.creator = gen_func
@@ -77,9 +94,12 @@ class Variable(object):
     def cleargrad(self):
         self.grad_var = None
 
-    @property
-    def shape(self):
-        return self.data.shape
+    def unchain(self):
+        self.creator = None
 
+    def reshape(self, *shape):
+        if len(shape) == 1 and isinstance(shape[0], (tuple, list)):
+            shape = shape[0]
+        return chainer0.functions.reshape(self, shape)
 
 #    def __pow__(self, power, modulo=None):
