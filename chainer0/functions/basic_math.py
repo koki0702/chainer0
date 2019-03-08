@@ -1,4 +1,5 @@
 import numpy as np
+import chainer0
 from chainer0.function import Function
 from chainer0 import variable
 from chainer0 import functions
@@ -6,42 +7,69 @@ from chainer0 import functions
 
 class Add(Function):
     def forward(self, a, b):
+        self.is_broadcast = a.shape != b.shape
         y = a + b
         return y
 
     def backward(self, gy):
-        return gy, gy
+        ga, gb = gy, gy
+
+        if self.is_broadcast:
+            a, b = self.inputs
+            ga = chainer0.functions.sum_to(ga, a.shape)
+            gb = chainer0.functions.sum_to(gb, b.shape)
+        return ga, gb
 
 
 class Sub(Function):
     def forward(self, a, b):
+        self.is_broadcast = a.shape != b.shape
         y = a - b
         return y
 
     def backward(self, gy):
-        return gy, -gy
+        ga, gb = gy, -gy
+
+        if self.is_broadcast:
+            a, b = self.inputs
+            ga = chainer0.functions.sum_to(ga, a.shape)
+            gb = chainer0.functions.sum_to(gb, b.shape)
+        return ga, gb
 
 
 class Mul(Function):
     def forward(self, a, b):
+        self.is_broadcast = a.shape != b.shape
         y = a * b
         return y
 
     def backward(self, gy):
         x0, x1 = self.inputs
-        return gy * x1, gy * x0
+        ga, gb = gy * x1, gy * x0
+
+        if self.is_broadcast:
+            a, b = self.inputs
+            ga = chainer0.functions.sum_to(ga, a.shape)
+            gb = chainer0.functions.sum_to(gb, b.shape)
+        return ga, gb
 
 
 class Div(Function):
     def forward(self, a, b):
+        self.is_broadcast = a.shape != b.shape
         y = a / b
         return y
 
     def backward(self, gy):
         x0, x1 = self.inputs
-        gx0 = gy / x1
-        gx1 = -gx0 * x0 / x1
-        return gx0, gx1
+        ga = gy / x1
+        gb = -ga * x0 / x1
+
+        if self.is_broadcast:
+            a, b = self.inputs
+            ga = chainer0.functions.sum_to(ga, a.shape)
+            gb = chainer0.functions.sum_to(gb, b.shape)
+        return ga, gb
 
 
 class Neg(Function):
@@ -54,14 +82,20 @@ class Neg(Function):
 
 class Pow(Function):
     def forward(self, a, b):
+        self.is_broadcast = a.shape != b.shape
         y = a ** b
         return y
 
     def backward(self, gy):
         x0, x1 = self.inputs
-        gx0 = x1 * (x0 ** (x1 - 1)) * gy
-        gx1 = functions.log(x0) * (x0 ** x1) * gy
-        return gx0, gx1
+        ga = x1 * (x0 ** (x1 - 1)) * gy
+        gb = functions.log(x0) * (x0 ** x1) * gy
+
+        if self.is_broadcast:
+            a, b = self.inputs
+            ga = chainer0.functions.sum_to(ga, a.shape)
+            gb = chainer0.functions.sum_to(gb, b.shape)
+        return ga, gb
 
 
 class Absolute(Function):
