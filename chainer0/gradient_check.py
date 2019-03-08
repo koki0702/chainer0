@@ -22,12 +22,17 @@ def check_backward(func, inputs_data, y_grad=None, testcase=None, eps=0.001,
     bp_grads = [x.grad for x in inputs]
 
     for num_grad, bp_grad in zip(num_grads, bp_grads):
-        res = np.allclose(num_grad, bp_grad, atol=atol, rtol=rtol)
 
+        testcase.assertEqual(bp_grad.shape, num_grad.shape)
+
+        res = np.allclose(num_grad, bp_grad, atol=atol, rtol=rtol)
         if verbose:
             print(num_grad - bp_grad)
 
         if testcase is not None:
+            if not res:
+                print('num_grad:', num_grad.shape, num_grad)
+                print('bp_grad:', bp_grad.shape, bp_grad)
             testcase.assertTrue(res)
 
     return True
