@@ -25,21 +25,21 @@ class TestMinMax(unittest.TestCase):
 
 
     def test_backward(self):
-        x_data = np.random.rand(10)
+        x_data = np.random.rand(10) * 100
         f = lambda x:F.max(x, keepdims=True)
         check_backward(f, x_data, testcase=self)
 
     def test_backward2(self):
-        x_data = np.random.rand(5,5)
+        x_data = np.random.rand(5,5) * 100
         check_backward(F.max, x_data, testcase=self)
 
     def test_backward3(self):
-        x_data = np.random.rand(5,5)
+        x_data = np.random.rand(5,5) * 100
         f = lambda x:F.max(x, axis=1, keepdims=True)
         check_backward(f, x_data, testcase=self)
 
     def test_backward4(self):
-        x_data = np.random.rand(5,5,5)
+        x_data = np.random.rand(5,5,5) * 100
         f = lambda x:F.max(x, axis=None, keepdims=True)
         check_backward(f, x_data, testcase=self)
     """

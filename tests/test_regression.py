@@ -33,6 +33,7 @@ class TestRegression(unittest.TestCase):
                 return self.l3(x)
 
         def logprob(model, x, t, noise_scale=0.1):
+            noise_scale = np.array(noise_scale)
             pred = model(x)
             logp = D.Normal(t, noise_scale).log_prob(pred)
             return -1 * F.sum(logp)
